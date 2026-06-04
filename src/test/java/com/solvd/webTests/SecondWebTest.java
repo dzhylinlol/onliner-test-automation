@@ -56,17 +56,14 @@ public class SecondWebTest implements IAbstractTest {
         String catalogPrice2 = price2.replaceAll("[^0-9,]", "").trim();
 
         softAssert.assertTrue(
-                title1.contains(compareTitle1) || title2.contains(compareTitle1),
-                "Compare title 1 not found in catalog titles!");
+                (title1.contains(compareTitle1) && title2.contains(compareTitle2)) ||
+                        (title1.contains(compareTitle2) && title2.contains(compareTitle1)),
+                "Compare titles don't match catalog titles!");
+
         softAssert.assertTrue(
-                title1.contains(compareTitle2) || title2.contains(compareTitle2),
-                "Compare title 2 not found in catalog titles!");
-        softAssert.assertTrue(
-                catalogPrice1.contains(comparePrice1) || catalogPrice2.contains(comparePrice1),
-                "Compare price 1 not found in catalog prices!");
-        softAssert.assertTrue(
-                catalogPrice1.contains(comparePrice2) || catalogPrice2.contains(comparePrice2),
-                "Compare price 2 not found in catalog prices!");
+                (catalogPrice1.contains(comparePrice1) && catalogPrice2.contains(comparePrice2)) ||
+                        (catalogPrice1.contains(comparePrice2) && catalogPrice2.contains(comparePrice1)),
+                "Compare prices don't match catalog prices!");
 
         softAssert.assertAll();
     }
